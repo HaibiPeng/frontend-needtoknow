@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>双飞翼布局</title>
+    <style type="text/css">
+        body {
+            min-width: 550px;
+        }
+
+        header {
+            text-align: center; /* 文本居中 */
+            background-color: #f1f1f1;
+        }
+
+        .col {
+            min-height: 80vh;
+            float: left; /* 首先让 left 和 right 都在左侧浮动 */
+        }
+
+        #main-wrap {
+            margin: 0 190px 0 190px; /* 左右使用 margin 留白 */
+        }
+
+        #main {
+            width: 100%;
+            background-color: #ccc;
+        }
+
+        #left {
+            width: 190px;
+            background-color: #0000FF;
+            margin-left: -100%; /* 与圣杯布局一样 */
+        }
+
+        #right {
+            width: 190px;
+            background-color: #FF0000;
+            margin-left: -190px; /* 往左拖动 190px，这里是 margin-left */
+        }
+
+        footer {
+            clear: both;/* footer 向下移动清除左右浮动*/
+            text-align: center; /* 文本居中 */
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+
+<body>
+    <header>this is header</header>
+    <div id="main" class="col">
+        <div id="main-wrap">
+            this is main
+        </div>
+    </div>
+    <div id="left" class="col">
+        this is left
+    </div>
+    <div id="right" class="col">
+        this is right
+    </div>
+    <footer>this is footer</footer>
+</body>
+
+</html>

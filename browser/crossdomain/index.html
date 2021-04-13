@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>hello world</h1>
+        <script>
+            //cors简单请求
+            /* fetch("http://localhost:91/")
+            .then(res => res.text())
+            .then(data => {
+                alert(data)
+            }); */
+
+            //jsonp
+            /* function func(data){
+                alert(data);
+            } */
+
+            //封装一个jsonp函数
+            /* function jsonp({ url, params, callback }) {
+                //创建一个script标签
+                let script = document.createElement('script');
+                params = { ...params, callback }; // wd=b&callback=alert
+                let arrs = [];
+                //合并参数
+                for (let key in params) {
+                    arrs.push(`${key}=${params[key]}`);
+                }
+                script.src = `${url}?${arrs.join('&')}`;
+                document.body.appendChild(script);
+            }
+
+            jsonp({
+                url: 'http://localhost:91',
+                params: { wd: 'helloworld' },
+                callback: 'alert'
+            }).then(data => {
+                console.log(data);
+            }) */
+
+            //cors复杂请求
+            let xhr = new XMLHttpRequest();
+            document.cookie = 'name=haibi'; // cookie不能跨域
+            xhr.withCredentials = true; // 前端设置是否带cookie
+            xhr.open('PUT', 'http://localhost:92/getData', true);
+            xhr.setRequestHeader('name', 'haibi');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+                        console.log(xhr.response);
+                        //得到响应头，后台需设置Access-Control-Expose-Headers
+                        console.log(xhr.getResponseHeader('name'));
+                    }
+                }
+            }
+            xhr.send();
+        </script>
+        <!-- <script src="http://localhost:91?callback=func"></script> -->
+    </body>
+</html>

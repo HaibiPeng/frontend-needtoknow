@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My test page</title>
+    <!-- <link href="styles/style.css" rel="stylesheet"> -->
+    <style>
+      .square {
+        width: 100px; 
+        height: 100px;
+        background-color: red;
+        border: 5px solid white;
+        margin: auto;
+      }
+
+      .circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+        background-color: red;
+        margin: auto;
+      }
+
+      .semicircle {
+        width: 100px;
+        height: 50px;
+        border-radius: 50px 50px 0 0;
+        background-color: red;
+        margin: auto;
+        border-bottom: 10px solid #ffffff;
+      }
+
+      .triangle {
+        width: 0;
+        height: 0px;
+        border-bottom: 100px solid red;
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        margin: auto;
+      }
+
+      .box {
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .one, .two, .three, .four, .five, .six{
+        margin: 16px;
+        padding: 4px;
+        
+        background-color: #e7e7e7;
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+        
+        border-radius: 10%;
+      }
+
+      .item {
+        display: block;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: black;
+        margin: 5px;
+      }
+
+      .one {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .two {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .two .item:nth-child(2) {
+        align-self: flex-end;
+      }
+
+      .three {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .three .item:nth-child(2) {
+        align-self: center;
+      }
+
+      .three .item:nth-child(3) {
+        align-self: flex-end;
+      }
+
+      .four {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .four .column {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .five {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .five .column {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .five .column:nth-child(2) {
+        align-self: center;
+      }
+
+      .six {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .six .column {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      #flex-container {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .box-left {
+        width:500px;
+        background-color: olive;
+      }
+
+      .box-right {
+        background-color: aliceblue;
+        flex: 1;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="square"></div>
+      <div class="circle"></div>
+      <div class="semicircle"></div>
+      <div class="triangle"></div>
+      <div class="box">
+        <div class="one">
+          <span class="item"></span>
+        </div>
+        <div class="two">
+          <span class="item"></span>
+          <span class="item"></span>
+        </div>
+        <div class="three">
+          <span class="item"></span>
+          <span class="item"></span>
+          <span class="item"></span>
+        </div>
+        <div class="four">
+          <div class="column">
+            <span class="item"></span>
+            <span class="item"></span>
+          </div>
+          <div class="column">
+            <span class="item"></span>
+            <span class="item"></span>
+          </div>
+        </div>
+        <div class="five">
+          <div class="column">
+            <span class="item"></span>
+            <span class="item"></span>
+          </div>
+          <div class="column">
+            <span class="item"></span>
+          </div>
+          <div class="column">
+            <span class="item"></span>
+            <span class="item"></span>
+          </div>
+        </div>
+        <div class="six">
+          <div class="column">
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+          </div>
+          <div class="column">
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+          </div>
+        </div>
+      </div>
+      <!-- 实现两列布局，左边自适应，右边固定 -->
+      <div id="flex-container">
+        <div class="box-left">left</div>
+        <div class="box-right">right</div>
+      </div>
+    </div>
+    <script src="scripts/main.js"></script>
+  </body>
+</html> 

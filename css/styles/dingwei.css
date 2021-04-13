@@ -1,0 +1,47 @@
+body {
+    min-width: 550px;
+}
+
+#header {
+    text-align: center; /* 文本居中 */
+    background-color: #f1f1f1;
+}
+
+/* container相对定位 */
+#container {
+    position: relative;
+    min-height: 80vh;
+}
+
+/* center上下不留空间，左右留出200px */
+#center {
+    margin: 0 200px;
+    min-height: 80vh;
+    background: lightgoldenrodyellow;
+}
+
+/* left和right定位设置为绝对定位，离顶部为0，
+宽度设置为留出来的200px，高度设为100% */
+#left, #right {
+    position: absolute;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    /* 或者使用：min-height: 80vh; */
+    background: lightblue;
+}
+
+/* 绝对定位：左侧留出0，右侧留出0 */
+#left {
+    left: 0;
+}
+
+#right {
+    right: 0;
+}
+
+#footer {
+    clear: both; /* footer 向下移动清除左右浮动*/
+    text-align: center;
+    background-color: #f1f1f1;
+}
