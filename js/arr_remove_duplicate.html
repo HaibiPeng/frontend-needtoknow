@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>remove duplicate</title>
+</head>
+<body>
+    <script>
+        var arr = [1, 2, 2, 2, 1, 6, 4, 5, 6, 8, 9, 9, 10];
+
+        //1.new Set()
+        /* var result1 = Array.from(new Set(arr)); //Array.from()
+        var result1 = [...new Set(arr)];
+        console.log(result1); */
+
+        //2.forEach
+        /* var result2 = [];
+        arr.forEach((item) => {
+            //返回item在数组里的下标，如果没有返回-1
+            if(result2.indexOf(item) === -1) {
+                result2.push(item);
+            }
+        });
+        console.log(result2); */
+
+        //3.filter
+        //过滤（选出）下标等于第一次出现时的下标的数
+        /* var result3 = arr.filter((item, index) => {
+            //indexOf方法只会返回item在数组中第一次出现时的下标
+            return arr.indexOf(item) === index;
+        });
+        console.log(result3); */
+
+        //4.reduce
+        //reduce每次循环的pre是上一次循环的结果
+        /* var result4 = arr.reduce((pre, item) => {
+            console.log(typeof pre);
+            return pre.includes(item) ? pre : [...pre, item];
+        }, []); //[]为初始pre
+        console.log(result4); */
+
+        //5.对象方法：键值唯一，类似set方法
+        /* var result5 = {};
+        arr.forEach((item, index) => {
+            result5[arr[index]] = 'foo';
+        });
+        console.log(result5);
+        //Object.keys()返回对象的keys组成的数组，再转为Number
+        result5 = Object.keys(result5).map((item) => parseInt(item));// ~~item
+        console.log(result5); */
+
+        //6.for循环，原地修改数组
+        /* for(let i = 0; i < arr.length; i++) {
+            for (let j = i + 1; j < arr.length; j++) {
+                if(arr[i] === arr[j]) {
+                    arr.splice(j, 1);
+                    j--;
+                    //注意：在删除第一个重复元素后，可能下一个元素也是重复的，需要再次进行判断
+                }
+            }
+        }
+        console.log(arr); */
+
+        //7.先排序再去重
+        arr = arr.sort();
+        for (let i = 0; i < arr.length - 1; i++) {
+            if (arr[i] === arr[i + 1]) {
+                arr.splice(i, 1);
+                i--;
+                //注意：在删除第一个重复元素后，可能下一个元素也是重复的，需要再次进行判断
+            }
+        }
+        console.log(arr);
+    </script>
+</body>
+</html>

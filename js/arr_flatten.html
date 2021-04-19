@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flatten array</title>
+</head>
+<body>
+    <script>
+        arr = [1, 2, [3, 4, [5, 6]], [7, 8, [9, 10]]];
+
+        //递归
+        /* function flatten(arr) {
+            let result = [];
+            for(let i = 0; i < arr.length; i++) {
+                if(Array.isArray(arr[i])) {
+                    //递归调用，将下一层返回的result和上一层的result合并
+                    result = result.concat(flatten(arr[i]));
+                } else {
+                    result.push(arr[i]);
+                }
+            }
+            return result;
+        }
+        console.log(flatten(arr)); */
+
+        //递归reduce写法
+        /* function flatten(arr) {
+            return arr.reduce((pre, next) => {
+                //三元运算符
+                return pre.concat(Array.isArray(next) ? flatten(next) : next);
+            }, [])
+        }
+        console.log(flatten(arr)); */
+
+        //非递归，循环写法（some方法）
+        /* function flatten(arr) {
+            //如果arr中还有数组，则对继续对arr进行扁平化
+            while(arr.some((item) => Array.isArray(item))) {
+                arr = [].concat(...arr);//ES6扩展运算符
+                console.log(arr);
+            }
+            return arr;
+        }
+        console.log(flatten(arr)); */
+
+        //toString转字符串，在用split以','合并为数组，最后将元素转为数字
+        /* function flatten(arr) {
+            return arr.toString().split(',').map(num => parseInt(num));
+        }
+        console.log(flatten(arr)); */
+
+        //ES6 flat方法
+        /* function flatten(arr) {
+            return arr.flat(Infinity);//参数为进行扁平化的最大层数，通常设为无限大
+        }
+        console.log(flatten(arr)); */
+
+        //JSON.stringify()转为字符串，再用replace方法正则匹配去掉[]
+        function flatten(arr) {
+            let str = JSON.stringify(arr).replace(/(\[|\])/g, '');
+            str = '[' + str + ']';//加上前后两个括号
+            return JSON.parse(str);
+        }
+        console.log(flatten(arr));
+
+    </script>
+</body>
+</html>
