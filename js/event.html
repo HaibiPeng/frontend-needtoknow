@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event</title>
+
+    <style>
+        .grandma, .mother, .daughter, .baby {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .grandma {
+            height: 500px;
+            width: 500px;
+            background: lightblue;
+        }
+
+        .mother {
+            height: 400px;
+            width: 400px;
+            background: lawngreen;
+        }
+
+        .daughter {
+            height: 300px;
+            width: 300px;
+            background: lightcoral;
+        }
+
+        .baby {
+            height: 200px;
+            width: 200px;
+            background: lightsalmon;
+        }
+    </style>
+</head>
+<body>
+    <div class="grandma">grandma
+        <div class="mother">mother
+            <div class="daughter">daughter
+                <div class="baby">baby</div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        let grandma = document.getElementsByClassName('grandma')[0];
+        let mother = document.getElementsByClassName('mother')[0];
+        let daughter = document.getElementsByClassName('daughter')[0];
+        let baby = document.getElementsByClassName('baby')[0];
+
+        function sayName() {
+            console.log("I'm ", this.className);
+        }
+
+        //先捕获，再冒泡
+        baby.addEventListener("click", sayName, false); //冒泡
+        daughter.addEventListener("click", sayName, true); //捕获
+        mother.addEventListener("click", sayName, true); //捕获
+        grandma.addEventListener("click", sayName, false); //冒泡
+    </script>
+</body>
+</html>

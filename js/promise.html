@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+</head>
+<body>
+    <script>
+        //Promise 对象表示异步操作的最终完成(或失败)及其结果值
+
+        let studyhard = false;
+        let findIntern = new Promise(function(resolve, reject) {
+            if(studyhard) {
+                resolve('Get an intern job!');
+            } else {
+                reject('Study harder!');
+            }
+        })
+
+        findIntern
+        .then(function(result) {
+            console.log(result);
+        })
+        .catch(function(result) {
+            console.log(result);
+        })
+        .finally(function() {
+            console.log('Find a job!');
+        })
+
+    </script>
+</body>
+</html>

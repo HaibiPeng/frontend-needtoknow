@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currying</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //函数柯里化：把具有较多参数的函数转换成具有较少参数的函数的过程，返回值是一个函数字符串
+        //把多次调用的变量保存在闭包中，每次调用都查看一下变量数和原函数的形参数量是否相等。
+        //作用：参数复用/延迟执行
+
+        //通用柯里化函数
+        function Currying(fn, args) {
+            var _this = this;
+            //每个函数都有一个 length属性(函数名.length), 表示期望接收的函数的个数(而不是实际接收的参数个数)
+            var length = fn.length;
+            var args = args || [];
+
+            return function () {
+                var _args  = args.concat(Array.prototype.slice.call(arguments));
+                // 如果参数个数小于最初的fn.length，则递归调用，继续收集参数
+                if(_args.length < length) {
+                    return Currying.call(_this, fn, _args);
+                } else {
+                    return fn.apply(this, _args);
+                }
+            }
+        }
+
+        function multiFn(a, b, c) {
+            return a * b * c;
+        }
+
+        var multi = Currying(multiFn);
+
+        console.log(multi(2)(3)(4)); //24
+        console.log(multi(2, 3, 4)); //24
+        console.log(multi(2)(3, 4)); //24
+        console.log(multi(2, 3)(4)); //24
+
+        function addFn(a, b, c) {
+            return a + b + c;
+        }
+
+        var adder = Currying(addFn);
+
+        console.log(adder(2)(3)(4)); //9
+        console.log(adder(2, 3, 4)); //9
+        console.log(adder(2)(3, 4)); //9
+        console.log(adder(2, 3)(4)); //9
+
+        function add() {
+            let args = Array.prototype.slice.call(arguments);
+
+            let inner = function () {
+                args.push(...arguments);
+                return inner;
+            }
+
+            inner.toString = function() {
+                return args.reduce(function(pre, cur) {
+                    return pre + cur;
+                }, 0);
+            }
+
+            return inner;
+        }
+
+        //let res = add(1)(2, 3)(4, 5)(6);
+        //console.log(Number(res) === 21);
+    </script>
+</body>
+</html>

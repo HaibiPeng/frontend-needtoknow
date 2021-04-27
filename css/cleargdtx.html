@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清除高度塌陷</title>
+
+    <style type="text/css">
+        .parent {
+            min-height: 5px;
+            border: 5px solid black;
+            width: 500px;
+            /* 触发BFC */
+            /* 1.父元素也设为浮动*/
+            /* float: left; */
+
+            /* 2.父元素绝对定位*/
+            /* position: absolute; */
+
+            /* 3.父元素设置为行内块元素*/
+            /* display: inline-block; */
+
+            /* 3.父元素设置为行内块元素*/
+            /* overflow: hidden; */
+        }
+
+        /* 4.在浮动元素下方添加空div，并给元素声明 clear：both */
+        /* .empty {
+            clear: both;
+        } */
+
+        
+        .child {
+            height: 200px;
+            width: 400px;
+            background-color: red;
+            float: left;
+            margin: 10px;
+        }
+
+        /* 5.为父元素设置伪类 */
+        /* .parent::after {
+            content: "";
+            display: block;
+            clear: both;
+        } */
+
+        /* 6.直接设置父元素高度(需要计算) */
+        .parent {
+            height: 220px;
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="parent">
+        <div class="child"></div>
+        <div class="empty"></div>
+    </div>
+</body>
+</html>

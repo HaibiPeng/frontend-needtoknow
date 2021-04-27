@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromiseRace</title>
+</head>
+
+<body>
+    <script>
+        //手写promise.race
+        let p1 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                //resolve('p1 resolved');
+                reject('p1 rejected');
+            }, 2000);
+        })
+
+        let p2 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('p2 resolved');
+            }, 1000);
+        })
+
+        let p3 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('p3 resolved');
+            }, 3000);
+        })
+
+        //promise.race
+        //Promise.race(iterable) 方法返回一个promise，一旦迭代器中的某个promise解决或拒绝，返回的 promise就会解决或拒绝
+        /* console.time('time');
+        Promise.race([p1, p2, p3]).then(result => {
+            console.log(result);
+            console.timeEnd('time');
+        }).catch(reason => {
+            console.log(reason);
+        }) */
+
+        PromiseRace = function (promises) {
+            return new Promise(function (resolve, reject) {
+                if (!Array.isArray(promises)) {
+                    return reject(new TypeError(`arguments must be Array`))
+                }
+                const length = promises.length;
+                //遍历promises
+                for (let i = 0; i < length; i++) {
+                    Promise.resolve(promises[i]).then((value) => {
+                        return resolve(value);
+                    },
+                    //若出错则reject
+                    (reason) => {
+                        return reject(reason);
+                    });
+                }
+            })
+        }
+
+        console.time('time');
+        PromiseRace([p1, p2, p3]).then(result => {
+            console.log(result);
+            console.timeEnd('time');
+        }).catch(reason => {
+            console.log(reason);
+        })
+    </script>
+</body>
+
+</html>

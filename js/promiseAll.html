@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromiseAll</title>
+</head>
+<body>
+    <script>
+        //手写promise.all
+        let p1 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                //resolve('p1 resolved');
+                reject('p1 rejected');
+            }, 2000);
+        })
+
+        let p2 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('p2 resolved');
+            }, 1000);
+        })
+
+        let p3 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('p3 resolved');
+            }, 3000);
+        })
+
+        //promise.all
+        //Promise.all(iterable) 方法返回一个Promise实例，此实例在iterable参数内所有的 promise 都“完成(resolved）”
+        //或参数中不包含 promise 时回调完成(resolve);
+        //如果参数中 promise 有一个失败(rejected)，此实例回调失败(reject)，失败原因的是第一个失败promise的结果
+        /* console.time('time');
+        Promise.all([p1, p2, p3]).then(result => {
+            console.log(result);
+            console.timeEnd('time');
+        }) */
+
+        PromiseAll = function (promises) {
+            return new Promise(function (resolve, reject) {
+                if (!Array.isArray(promises)) {
+                    return reject(new TypeError(`arguments must be Array`));
+                }
+                //获取promises数量
+                const length = promises.length;
+                if (promises.length === 0) {//如果数组长度为0则返回空数组
+                    resolve([]);
+                }
+                //维护一个计数器和一个结果数组
+                let count = 0;
+                let results = new Array(length);
+                //遍历promises
+                for (let i = 0; i < length; i++) {
+                    //每个promise都需要resolve或reject
+                    Promise.resolve(promises[i]).then((value) => {
+                        count++;
+                        results[i] = value;
+                        //遍历完后则resolve整个results
+                        if (count === length) {
+                            return resolve(results);
+                        }
+                    },
+                    //若出错则reject
+                    (reason) => {
+                        return reject(reason);
+                    });
+                }
+            })
+        }
+
+        console.time('time');
+        PromiseAll([p1, p2, p3]).then(result => {
+            console.log(result);
+            console.timeEnd('time');
+        }).catch(reason => {
+            console.log(reason);
+        })
+    </script>
+</body>
+</html>

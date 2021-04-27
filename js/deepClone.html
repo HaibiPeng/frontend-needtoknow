@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepClone</title>
+</head>
+<body>
+    <script>
+        //deepclone
+        let obj1 = {
+            name: 'phb',
+            age: 22,
+            hobbies: ['photography', 'traveling', 'cooking'],
+            friends: {
+                a: 'xbx',
+                b: 'lxz'
+            }
+        }
+
+        function deepclone(obj) {
+            if(typeof obj !== 'object' || obj === null) {
+                return obj;
+            }
+
+            let result;
+
+            if(obj instanceof Array) {
+                result = [];
+            } else {
+                result = {};
+            }
+
+            for(let key in obj) {
+                //只拷贝自身对象的属性，不拷贝原型链上的属性
+                if(obj.hasOwnProperty(key)) {
+                    //递归调用
+                    result[key] = deepclone(obj[key]);
+                }
+            }
+
+            return result;
+        }
+
+        let obj2 = deepclone(obj1);
+        obj2.name = 'xbx';
+        obj2.hobbies[0] = 'biking';
+        obj2.friends.a = 'phb';
+        console.log(obj1);
+        console.log(obj2);
+    </script>
+</body>
+</html>

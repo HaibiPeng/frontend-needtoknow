@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>basic labels</title>
+</head>
+<body>
+    <h1>hello world</h1>
+    <h2>hello world</h2>
+    <h3>hello world</h3>
+    <h4>hello world</h4>
+    <h5>hello world</h5>
+    <h6>hello world</h6>
+
+    <p><em>hello world</em> <strong>hello world</strong></p>
+
+    <img src="aaltologo.jpg" width="300px" title="aaltologo"/>
+    <img src="aaltologo1.jpg" width="300px" alt="aaltologo"/>
+
+    <table align="center" border="1" cellspacing="0" cellpadding="10">
+        <thead>
+            <tr>
+                <th>第一列</th>
+                <th>第二列</th>
+                <th>第三列</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="2">1</td>
+                <td colspan="2">2</td>
+                <!-- <td>3</td> -->
+            </tr>
+            <tr>
+                <!-- <td>1</td> -->
+                <td>2</td>
+                <td>3</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 自定义列表 -->
+    <dl>
+        <dt>关于我们</dt>
+        <dd>新浪微博</dd>
+        <dd>关注我们</dd>
+        <dd>知乎</dd>
+        <dt>关于我们</dt>
+        <dd>新浪微博</dd>
+        <dd>关注我们</dd>
+        <dd>知乎</dd>
+    </dl>
+
+    <form action="demo.php" method="post">
+        Username: <input type="text" name="username" placeholder="username" maxlength="10">
+        <br>
+        Password: <input type="password" name="pwd">
+        <br>
+        <!-- 单选需要有相同name值，默认选中使用checked -->
+        Gender: 
+        <label for="male">Male</label>
+        <input type="radio" name="gender" checked="checked" id="male"> 
+        <label for="female">Female</label>
+        <input type="radio" name="gender" id="female">
+        <br>
+        Hobbies: eating <input type="checkbox"> sleeping <input type="checkbox">
+        <br>
+        Hometown:
+        <select>
+            <option>Beijing</option>
+            <option>Hubei</option>
+            <option selected="selected">Shanghai</option>
+        </select>
+        <br>
+        Note:
+        <br>
+        <textarea>enter the note</textarea>
+        <br>
+        <input type="submit" value="submit">
+        <input type="reset" value="reset">
+        <input type="button" value="submit">
+        <br>
+        <input type="file" value="file">
+    </form>
+
+</body>
+</html>
