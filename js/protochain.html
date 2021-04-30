@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>protochain</title>
+</head>
+<body>
+    <script>
+        function Func1() {}
+        function Func2() {}
+
+        const f1 = new Func1();
+
+        //实例属性，使用this定义在构造函数上，每个实例独有，互不影响
+        //原型属性 所有实例共有
+        Func1.prototype.sayName = function(name) {
+            console.log(name);
+        }
+
+        Func2.prototype = f1;
+        f1.constructor = Func2;
+
+        const f2 = new Func2();
+
+        //静态属性，绑定在构造函数上，不能通过实例调用，只能通过构造函数调用
+        //console.log(Array.isArray([]));
+
+        //私有属性 使用var等定义在构造函数上，不能通过实例访问
+    </script>
+</body>
+</html>

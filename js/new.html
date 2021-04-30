@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New</title>
+</head>
+<body>
+    <script>
+        // ES5构造函数
+        function Func1(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        Func1.prototype.sayName = function() {
+            console.log(this.name);
+        }
+
+        var f1 = new Func1('peng', 23);
+
+        //手写new
+        //new操作符创建对象分为以下四个步骤：
+        //1.创建一个空对象
+        //2.将所创建对象的__proto__属性值设为构造函数的prototype的属性值
+        //3.执行构造函数中的代码，构造函数中的this指向该对象
+        //4.如果构造器没有手动返回对象，则返回第一步创建的新对象(obj)
+        //如果有，则舍弃掉第一步创建的新对象，返回手动return的对象(returnObj)
+        function myNew() {
+            //1.创建一个空对象
+            var obj = new Object();
+            //取出第一个参数，即构造函数
+            var ConstructorFunc = Array.prototype.shift.call(arguments);
+            //2.搭建__proto__和prototype通路
+            obj.__proto__ = ConstructorFunc.prototype;
+            //3.绑定参数到obj上，返回一个returnObj
+            var returnObj = ConstructorFunc.apply(obj, arguments);
+            //4.返回对象
+            if((typeof returnObj === 'object') && (returnObj !== null)){
+                return returnObj;
+            } else {
+                return obj;
+            }
+        }
+
+        var f2 = myNew(Func1, 'peng', 23);
+
+        //ES6 class类
+        class Parent {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            sayName() {
+                console.log(this.name);
+            }
+        };
+        const child = new Parent('echo', 26);
+        //child.sayName() //echo
+
+    </script>
+</body>
+</html>

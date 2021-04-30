@@ -1,6 +1,30 @@
 //防抖：让事件响应函数（回调函数）在间隔时间后才执行
 //如果在间隔时间内事件再次触发，则清除计时，重新开始计算执行时间
 //如果间隔时间内事件没有触发，则执行事件响应函数
+function debounce1(func, delay, immediate) {
+    let timeout;
+    return function () {
+        let args = arguments;
+        let _this = this;
+        if (timeout) {
+            clearTimeout(timeout);
+        }
+        if(immediate) {
+            let callNow = !timeout;
+            timeout = setTimeout(() => {
+                timeout = null;
+            }, delay);
+            if(callNow) {
+                func.apply(_this, args);
+            }
+        } else {
+            timeout = setTimeout(() => {
+                func.apply(_this, args);
+            }, delay);
+        }
+    }
+}
+
 function debounce(func, delay, immediate) {
     let timeout, result;
     let debounced = function () {
@@ -56,7 +80,7 @@ let container = document.querySelector('#container');
 let btn = document.querySelector('#button');
 let paybtn = document.querySelector('#pay');
 
-let debouncedDoAction = debounce(doAction, 1000, true);
+let debouncedDoAction = debounce1(doAction, 1000);
 
 let debouncedPay = debounce(payMoney, 2000);
 

@@ -19,24 +19,40 @@
             }
         }
 
-        function deepclone(obj) {
-            if(typeof obj !== 'object' || obj === null) {
+        function shallowCopy(obj) {
+            if (typeof obj !== 'object' || obj === null) {
+                // 如果是基础类型就直接返回
                 return obj;
             }
 
-            let result;
+            const result = Array.isArray(obj) ? [] : {};
 
-            if(obj instanceof Array) {
-                result = [];
-            } else {
-                result = {};
+            for (let key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    result[key] = obj[key];
+                }
             }
+            return result;
+        }
+        
+        function deepclone(obj, map = new Map()) {
+            if(typeof obj !== 'object' || obj === null) {
+                // 如果是基础类型就直接返回
+                return obj;
+            }
+
+            // 解决循环引用， 防止无限遍历
+            if(map.get(obj)) return map.get(obj);
+
+            const result = Array.isArray(target) ? [] : {}
+
+            map.set(result, obj);
 
             for(let key in obj) {
                 //只拷贝自身对象的属性，不拷贝原型链上的属性
                 if(obj.hasOwnProperty(key)) {
                     //递归调用
-                    result[key] = deepclone(obj[key]);
+                    result[key] = deepclone(obj[key], map);
                 }
             }
 

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    /* 1.padding-bottom */
+    /* .wrapper {
+        position: relative;
+        background: #ccc;
+        width: 50%;
+        padding-bottom: 25%;
+    } */
+
+    /* 
+    2.vmin
+    vw 相对于视窗的宽度
+    vh 相对于视窗的高度
+    vmin 相对于视口的宽度或高度中较小的那个被均分为100单位的vmin
+    vmax 相对于视口的宽度或高度中较大的那个被均分为100单位的vmax */
+    /* body {
+        width: 100vmin;
+        height: 100vmin;
+    }
+
+    .wrapper {
+        background: #ccc;
+        width: 50%;
+        height: 25%;
+    } */
+
+    /* 直接用vw/vh */
+    /* .wrapper {
+        background: #ccc;
+        width: 50%;
+        height: 25vw;
+    } */
+
+    /* 3.calc() */
+    body {
+        width: 100vmin;
+        height: 100vmin;
+    }
+
+    .wrapper {
+        background: #ccc;
+        width: calc(50%);
+        height: calc(25%);
+    }
+
+
+</style>
+<head>
+<body>
+    <div class="wrapper">
+        <div class="inner">
+        </div>
+    </div>
+</body>
+</html>

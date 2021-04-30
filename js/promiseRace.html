@@ -48,6 +48,7 @@
                 const length = promises.length;
                 //遍历promises
                 for (let i = 0; i < length; i++) {
+                    //通过Promise.resolve()获取每个promise的结果
                     Promise.resolve(promises[i]).then((value) => {
                         return resolve(value);
                     },

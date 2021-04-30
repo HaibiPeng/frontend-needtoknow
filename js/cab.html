@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>call/apply/bind</title>
+</head>
+<body>
+    <script>
+        //call/apply/bind 改变函数this指向
+
+        function Person(a, b, c) {
+            console.log(this.name);
+            console.log(a, b, c);
+        }
+
+        Person.prototype.collection = 'collections';
+
+        var name = 'haibi';
+
+        var name1 = {
+            name: 'John'
+        };
+
+        //call: 改变函数this指向指定的对象
+        //在函数的原型中添加call函数，Person.newCall在调用时this指向Person这个构造函数
+        //1.在指定对象中添加这个构造函数作为对象的一个属性
+        //2.然后进行这个属性方法的引用调用
+        //3.需要清除这个属性，不能改写对象
+        Function.prototype.newCall = function(obj, ...args) {
+            if (typeof obj === 'object') {
+                obj = obj || window;
+            } else {
+                obj = {};
+            }
+            //使用Symbol创建一个独一无二的key，避免重复
+            let func = Symbol();
+            obj[func] = this;
+            //创建一个返回值
+            let result = obj[func](...args);
+            delete obj[func];
+            return result;
+        }
+
+        /* Person('a', 'b', 'c');//haibi
+        Person.newCall(name1, 'a', 'b', 'c');//John */
+
+        //apply: apply 与 call 的区别，第二个参数是数组，且不会有第三个参数
+        Function.prototype.newApply = function (obj, args) {
+            if (typeof obj === 'object') {
+                obj = obj || window;
+            } else {
+                obj = {};
+            }
+            //使用Symbol创建一个独一无二的key，避免重复
+            let func = Symbol();
+            obj[func] = this;
+            //创建一个返回值
+            let result = obj[func](...args);//扩展运算符
+            delete obj[func];
+            return result;
+        }
+
+        /* Person('a', 'b', 'c');//haibi
+        Person.newApply(name1, ['a', 'b', 'c']);//John */
+
+        //bind: 返回一个函数，且具有new构造函数的特性
+        Function.prototype.newBind = function (obj, ...args1) {
+            if(typeof this !== 'function') {
+                throw new Error('not a function');
+            }
+
+            //this指向构造函数
+            let _this = this;
+            //Func作为一个桥函数
+            let Func = function () { };
+            //把构造函数的原型对象赋值给桥函数的原型对象
+            Func.prototype = _this.prototype;
+            let newFunc = function (...args2) {
+                // 将前后参数合并传入
+                let args = [...args1, ...args2];
+                //判断是否new了一个实例，生成一个实例后this会改变指向到这个实例
+                if(this instanceof Func) {
+                    //需要指向这个实例
+                    _this.apply(this, args);
+                } else {
+                    //没有生成实例则仍指向这个obj
+                    _this.apply(obj, args);
+                }
+            }
+            //把newFunc的原型对象作为桥函数Func的实例
+            newFunc.prototype = new Func();
+            return newFunc;
+        }
+
+        let newPerson = Person.newBind(name1, 'a', 'b');
+        newPerson('c');
+        let person = new newPerson('c');
+        //person会去newPerson.prototype(newFunc.prototype)中找属性和方法，
+        //newFunc.prototype等价于Func的实例，Func的实例会在Func.prototype中找属性和方法
+        //Func.prototype和Person.prototype等价，即person继承了Person构造函数的属性和方法
+        console.log(person.collection);
+
+    </script>
+</body>
+</html>

@@ -1,12 +1,14 @@
 //节流：事件触发执行一次响应函数后，再间隔固定时间触发事件才会再次执行响应函数
 //在此间隔内，不管事件触发多少次，都不会执行响应函数
-//setTimeout
+//setTimeout 第一次不执行，最后一次不执行
 function throttle1(func, delay) {
     let timeout;
     return function() {
         let context = this;
         let args = arguments;
-        if(timeout) return;
+        if(timeout) {
+            return;
+        }
         timeout = setTimeout(function() {
             func.apply(context, args);
             timeout = null;
@@ -14,7 +16,7 @@ function throttle1(func, delay) {
     }
 }
 
-//new Date()
+//new Date() 第一次执行，最后一次不执行
 function throttle2(func, delay) {
     let pre = 0;
     return function () {
@@ -38,6 +40,9 @@ function throttle3(func, delay) {
         //第一次执行
         let now = new Date();
         if (now - pre > delay) {
+            //第一次调用为undefined
+            //从第一次调用debounce到最后一次用一直都是执行这个if中的func
+            console.log(timeout);
             if(timeout) {
                 clearTimeout(timeout);
                 timeout = null;
@@ -46,8 +51,11 @@ function throttle3(func, delay) {
             pre = now;
         }
         //最后一次也执行
+        //每次调用debounce都会进入这个if创建timeout，因为timeout每次都会在上一个if中清除掉了
+        //这里的func和上一个if中的func交替执行
         if(!timeout){
             timeout = setTimeout(function () {
+                console.log(timeout);
                 func.apply(context, args);
                 pre = new Date();
                 timeout = null;

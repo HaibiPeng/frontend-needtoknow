@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>instanceof</title>
+</head>
+<body>
+    <script>
+        //instanceof 检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上
+        function Func1() {}
+        function Func2() {}
+
+        const f1 = new Func1();
+
+        console.log(f1 instanceof Func1);
+        console.log(f1 instanceof Func2);
+
+        function myInstanceof(left, right) {
+            let prototype = right.prototype;
+            let proto = left.__proto__;
+            while(true) {
+                if(proto === prototype) return true;
+                if(proto === null) return false;
+                proto = proto.__proto__;
+            }
+        }
+
+        console.log(myInstanceof(f1, Func1));
+        console.log(myInstanceof(f1, Func2));
+
+    </script>
+</body>
+</html>

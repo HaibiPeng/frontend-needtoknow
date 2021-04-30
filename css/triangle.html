@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triangle</title>
+
+    <style>
+        .triangles {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            
+        }
+
+        .directions {
+            display: flex;
+            flex-direction: column;
+            align-items: space-between;
+        }
+
+        .corners {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .triangle-down{
+            width: 0;
+            height: 0;
+            border-top: 50px solid black;
+            border-bottom: 50px solid transparent;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+        }
+
+        .triangle-up{
+            width: 0;
+            height: 0;
+            border-bottom: 50px solid black;
+            border-top: 50px solid transparent;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+        }
+
+        .triangle-left{
+            width: 0;
+            height: 0;
+            border-right: 50px solid black;
+            border-bottom: 50px solid transparent;
+            border-left: 50px solid transparent;
+            border-top: 50px solid transparent;
+        }
+
+        .triangle-right{
+            width: 0;
+            height: 0;
+            border-left: 50px solid black;
+            border-bottom: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-top: 50px solid transparent;
+        }
+
+        .triangle-topleft{
+            width: 0;
+            height: 0;
+            border-top: 100px solid black;
+            border-right: 100px solid transparent;
+        }
+
+        .triangle-topright{
+            width: 0;
+            height: 0;
+            border-top: 100px solid black;
+            border-left: 100px solid transparent;
+        }
+
+
+        .triangle-bottomleft{
+            width: 0;
+            height: 0;
+            border-bottom: 100px solid black;
+            border-right: 100px solid transparent;
+        }
+
+        .triangle-bottomright{
+            width: 0;
+            height: 0;
+            border-bottom: 100px solid black;
+            border-left: 100px solid transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="triangles">
+        <div class="directions">
+            <div class="triangle-down"></div>
+            <div class="triangle-up"></div>
+            <div class="triangle-left"></div>
+            <div class="triangle-right"></div>
+        </div>
+        <div class="corners">
+            <div class="triangle-topleft"></div>
+            <div class="triangle-topright"></div>
+            <div class="triangle-bottomleft"></div>
+            <div class="triangle-bottomright"></div>
+        </div>
+    </div>
+</body>
+</html>

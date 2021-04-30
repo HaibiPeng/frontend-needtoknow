@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Positions</title>
+
+    <style>
+        body {
+            background: lightblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box1 {
+            height: 500px;
+            width: 500px;
+            background: lemonchiffon;
+        }
+
+        .box2 {
+            height: 400px;
+            width: 400px;
+            background: lightcoral;
+        }
+
+        .box3 {
+            height:300px;
+            width: 300px;
+            background: lightcyan;
+        }
+
+        .box4 {
+            height: 100px;
+            width: 100px;
+            background: lightseagreen;
+        }
+
+        .box5 {
+            height: 100px;
+            width: 100px;
+            background: lightgoldenrodyellow;
+        }
+
+
+        .box1, .box2, .box3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* .box2 {
+            position: absolute;
+        } */
+
+        .box3 {
+            position: absolute;
+        }
+
+        .box4 {
+            position: absolute;/* 相对父元素box3定位 */
+            /* position: relative; *//* 相对自己本身原来的位置定位 */
+            left: -20px;
+        }
+
+        .box5 {
+            position: fixed;/* 相对浏览器定位 */
+            top: 50px;
+            left: 50px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <div class="box2">
+            <div class="box3">
+                <div class="box4"></div>
+                <div class="box5"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

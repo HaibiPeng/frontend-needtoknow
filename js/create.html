@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create</title>
+</head>
+<body>
+    <script>
+        //手写create
+        //通过构造函数的prototype原型创建一个新的实例对象, 被创建的对象继承另一个对象的原型(__proto__)
+        //方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__
+        Object.myCreate = function (prototype) {
+            function Func() { };
+            Func.prototype = prototype;
+            return new Func();
+        }
+
+        const person = {
+            name: 'John',
+            age: 21
+        };
+
+        const newPerson = Object.myCreate(person);
+
+        //newPerson的__proto__指向person
+        //console.log(newPerson);
+    </script>
+</body>
+</html>
