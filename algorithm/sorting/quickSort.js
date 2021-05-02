@@ -14,13 +14,13 @@ function partition(arr, low, high) {
         while(low < high && arr[high] >= pivot) {
             high--;
         }
-        //将这个数赋值给arr[low]
+        //将这个数赋值给arr[low]，即放到pivot前面
         arr[low] = arr[high];
         //正序查找大于pivot的数
         while(low < high && arr[low] <= pivot) {
             low++;
         }
-        //将这个数赋值给arr[high]
+        //将这个数赋值给arr[high]，即放到pivot后面
         arr[high] = arr[low];
     }
     arr[low] = pivot;
