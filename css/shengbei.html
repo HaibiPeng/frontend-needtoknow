@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <title>圣杯布局</title>
-    <link rel="stylesheet" href="./styles/dingwei.css" />
-    <!-- <style type="text/css">
-        body {
+    <!-- <link rel="stylesheet" href="./styles/dingwei.css" /> -->
+    <style type="text/css">
+        html, body {
             min-width: 550px;
         }
 
@@ -17,7 +17,9 @@
 
         #container { 
             /* 设置 left 和 right 的宽度: 左右分别空出200px区域 */
-            padding: 0 200px 0 200px
+            /* 上 左 下 右 */
+            margin: 0 200px 0 200px;
+            /* padding: 0 200px; */
         }
 
         #container .column {
@@ -39,10 +41,10 @@
             width: 200px;
             margin-left: -100%;
             right: 200px;
-            /* 这里使用position: relative和right: 200px将left的位置在原有位置基础上左移200px */
+            /* 这里使用position: relative和right: 200px将left的位置在原有位置基础上左移200px, left不再覆盖main */
         }
 
-        /* left上移过后，right就会处于上一行的开头位置，
+        /* left上移过后，right就会处于第二行的开头位置，
         这时再设置right部分margin-right为负的宽度，right就会左移到上一行的末尾 */
         #right {
             position: relative;
@@ -59,7 +61,7 @@
             text-align: center;
             background-color: #f1f1f1;
         }
-    </style> -->
+    </style>
 </head>
 
 <body>

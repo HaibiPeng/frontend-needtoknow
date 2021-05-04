@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clearfix</title>
+
+    <style type="text/css">            
+        body {
+            min-width: 550px;
+        }
+
+        #container {
+            width: 500px;
+            border: 2px solid black;
+            background: lavender;
+            /* overflow: auto; */ /* box为float则开启BFC清除浮动 */
+        }
+
+        .box {
+            width: 200px;
+            height: 100px;
+            background: lightcoral;
+            margin: 10px;
+            text-align: center;
+            display: inline-block; /* 配合clear:both 或者 clearfix伪元素清除浮动 */
+            /* float: left; */ /* 配合BFC清除浮动 */
+        }
+
+        /* #clearfix::after {
+            content: "";
+            display: block;
+            clear: both;
+        } */
+
+        p {
+            clear: both;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="clearfix">
+        <div id="container">
+            <div class="box">box</div>
+            <div class="box">box</div>
+            <div class="box">box</div>
+            <div class="box">box</div>
+            <p></p> <!-- 需要是块级元素 -->
+        </div>
+    </div>
+</body>
+</html>

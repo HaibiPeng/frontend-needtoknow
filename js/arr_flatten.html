@@ -23,11 +23,11 @@
         }
         console.log(flatten(arr)); */
 
+
         //递归reduce写法
         /* function flatten(arr) {
             return arr.reduce((pre, next) => {
-                //三元运算符
-                return pre.concat(Array.isArray(next) ? flatten(next) : next);
+                return pre.concat(Array.isArray(next) ? flatten(next) : next);//三元运算符
             }, [])
         }
         console.log(flatten(arr)); */
@@ -56,13 +56,14 @@
         console.log(flatten(arr)); */
 
         //JSON.stringify()转为字符串，再用replace方法正则匹配去掉[]
-        function flatten(arr) {
+        /* function flatten(arr) {
             let str = JSON.stringify(arr).replace(/(\[|\])/g, '');
             str = '[' + str + ']';//加上前后两个括号
             return JSON.parse(str);
         }
-        console.log(flatten(arr));
+        console.log(flatten(arr)); */
 
+        
     </script>
 </body>
 </html>
