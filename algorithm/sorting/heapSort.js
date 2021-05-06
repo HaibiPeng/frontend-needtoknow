@@ -43,7 +43,7 @@ function buildHeap(arr) {
 function heapify(arr, i, length) {
     let tmp = arr[i];//取出当前元素（父节点）
 
-    ////从i结点的左子结点开始，也就是2i+1处开始
+    //从i结点的左子结点开始，也就是2i+1处开始
     for(let k = 2 * i + 1; k < length; k = 2 * k + 1) {
         //如果左子结点小于右子结点，k指向右子结点（从右至左）
         if(k + 1 < length && arr[k] < arr[k + 1]) {
