@@ -52,4 +52,6 @@ var a6 = [4, 2, 3, 1, 4]
 console.log(arrayInclude(a5, a6)) // 0
 var a7 = [4, 2, 3, 1, 4]
 var a8 = [3, 2, 3, 1, 4]
-console.log(arrayInclude(a7, a8)) // -1
+//console.log(arrayInclude(a7, a8)) // -1
+
+console.log(a7.join(''));

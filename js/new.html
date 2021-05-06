@@ -32,9 +32,16 @@
             var obj = new Object();
             //取出第一个参数，即构造函数
             var ConstructorFunc = Array.prototype.shift.call(arguments);
+            //var [ConstructorFunc, ...args] = [...arguments];
             //2.搭建__proto__和prototype通路
             obj.__proto__ = ConstructorFunc.prototype;
-            //3.绑定参数到obj上，返回一个returnObj
+
+            //前两步也可以使用Object.create()方法来实现，省去了第二步
+            //此方法会创建一个构造函数，将这个构造函数的prototype继承传入的prototype
+            //然后返回new方法调用这个构造函数生成的实例
+            //const Obj = Object.create(ConstructorFunc.prototype);
+            
+            //3.改变this指向，绑定参数到obj上，返回一个returnObj
             var returnObj = ConstructorFunc.apply(obj, arguments);
             //4.返回对象
             if((typeof returnObj === 'object') && (returnObj !== null)){

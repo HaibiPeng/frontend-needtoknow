@@ -35,17 +35,20 @@
             return result;
         }
         
-        function deepclone(obj, map = new Map()) {
+        function deepclone(obj, map = new WeakMap()) {
             if(typeof obj !== 'object' || obj === null) {
                 // 如果是基础类型就直接返回
                 return obj;
             }
+            if(obj instanceof RegExp) return new RegExp(obj);
 
             // 解决循环引用， 防止无限遍历
+            // 检查是有存在相同的对象在之前拷贝过，有则返回之前拷贝后存于map中的对象
             if(map.get(obj)) return map.get(obj);
 
-            const result = Array.isArray(target) ? [] : {}
+            const result = Array.isArray(obj) ? [] : {}
 
+            //备份存在map中，result目前是空对象/数组, 后面会对属性进行追加，这里存的值是对象的栈
             map.set(result, obj);
 
             for(let key in obj) {
@@ -57,6 +60,11 @@
             }
 
             return result;
+        }
+
+        //存在问题：遇到函数，undefined，Symbol，Date对象时会自动忽略，遇到正则时会返回空对象。
+        function deepClone2(obj) {
+            return JSON.parse(JSON.stringify(obj))
         }
 
         let obj2 = deepclone(obj1);

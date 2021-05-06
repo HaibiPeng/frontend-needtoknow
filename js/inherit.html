@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inherit</title>
+</head>
+<body>
+    <script>
+        //继承是指一个对象直接使用另外一个对象的属性和方法
+
+        //先创建一个Person类
+        function Person (name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        // 方法定义在构造函数的原型上
+        Person.prototype.getName = function () {
+            console.log(this.name);
+        }
+
+        var person = new Person('haibi', '23');
+
+        //继承Person的属性，并添加自己的属性
+        function Teacher(name, age, subject) {
+            Person.call(this, name, age);
+            this.subject = subject;
+        }
+
+        //继承方法
+        //此处为赋值备份了Person的方法
+        //因为如果直接赋值（Teacher.prototype = Person.prototype），则是引用关系
+        //意味着修改Teacher.prototype也会同时修改Person.prototype，这是不合理的
+        Teacher.prototype = Object.create(Person.prototype);
+
+        //prototype的属性constructor指向构造函数本身
+        //但因为是复制其他类的prototype，所以这个指向是不对的，仍然指向Person构造函数
+        //所以需要更正，如果不修改，会导致我们类型判断出错
+        Teacher.prototype.constructor = Teacher;
+
+        var teacher = new Teacher();
+        teacher.getName();
+        console.log(teacher.name);
+        console.log(Teacher.prototype.constructor);
+        console.log(teacher.constructor);
+
+    </script>
+</body>
+</html>
