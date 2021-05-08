@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reduce</title>
+</head>
+<body>
+    <script>
+        Array.prototype.myreduce = function (callback, init) {
+            let i = 0;
+            if (init == undefined) {   //判断是否传入了初始值
+                init = this[0];//没有传入初始值，则初始值为当前数组的第一个元素
+                i = 1; //则从第二个元素开始遍历
+            }
+            for (i; i < this.length; i++) {
+                init = callback(init, this[i], i, this);
+            }
+            return init;
+        }
+
+    </script>
+</body>
+</html>
