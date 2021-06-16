@@ -28,7 +28,7 @@ import OrderTerm from "@/typings/OrderTerm";
 export default defineComponent({
   props: {
     jobs: {
-      // generics
+      // type assertion + generics
       type: Array as PropType<Job[]>,
       required: true,
     },
