@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>setTimeout mocks setInterval</title>
+</head>
+<body>
+    <script>
+        //setInterval
+        
+        let timer = null;
+        function mySetInterval(callback, interval) {
+            let interv = function () {
+                callback.call(null);
+                timer = setTimeout(interv, interval);
+            };
+            timer = setTimeout(interv, interval);
+            return timer;
+        }
+
+        function log() {
+            console.log(timer);
+        }
+
+        mySetInterval(log, 1000);
+
+        setTimeout(() => {
+            clearInterval(timer);
+            timer = null;
+        }, 5000);
+
+
+        //上面实现了递归调用，这样做的好处是：在前一个定时器代码执行完成之前，不会向队列插入新的定时代码，
+        //确保不会有任何的缺失间隔。而且，它保证在下一次定时器代码执行之前，至少要等待指定的时间间隔
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script crossorigin type="text/babel" src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin type="text/babel" src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <title>React Timer</title>
+</head>
+<body>
+    <div id="counter"></div>
+    <script>
+        import React from "react";
+        import ReactDOM from 'react-dom';
+        
+        class Counter extends React.Component {
+                constructor(props, context) {
+                    super(props, context)
+                    this.state = {
+                        hour: 0,
+                        second: 0,
+                        minutes: 0,
+                        strikes: 0,
+                    }
+                    this.timer = this.timer.bind(this)//否则this不对
+                }
+                timer() {
+                    const nextstrikes = this.state.strikes + 50;
+                    this.setState({
+                        hour: parseInt(nextstrikes / 3600000) % 24,
+                        minutes: parseInt(nextstrikes / 60000) % 60,
+                        second: parseInt(nextstrikes / 1000) % 60,
+                        strikes: this.state.strikes + 50
+                    })
+                }
+
+                componentDidMount() {
+                    setInterval(this.timer, 50);
+                }//render结束后
+
+                render() {
+                    return (
+                        <div>
+                            <h1>{this.state.hour}:{this.state.minutes}:{this.state.second}</h1>
+                        </div>
+                    );
+                }
+            }
+            ReactDOM.render(
+                <Counter />, document.querySelector('#counter')
+            )
+    </script>
+</body>
+</html>
