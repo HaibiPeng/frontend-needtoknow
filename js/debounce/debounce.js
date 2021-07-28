@@ -6,6 +6,20 @@
 //调整浏览器窗口大小时，resize 次数过于频繁，造成计算过多，此时需要一次到位，就用到了防抖
 //文本编辑器实时保存，当无任何更改操作一秒后进行保存
 
+function debounce0(func, delay) {
+    let timeout;
+    return function() {
+        let args = arguments;
+        let context = this;
+        if (timeout) {
+            clearTimeout(timeout);
+        }
+        timeout = setTimeout(function() {
+            func.apply(context, args);
+        }, delay)
+    }
+}
+
 
 function debounce1(func, delay, immediate) {
     let timeout;
@@ -79,16 +93,16 @@ function doAction(e) {
 }
 
 function payMoney() {
-    console.log('paid');pay
+    console.log('paid');
 }
 
 let container = document.querySelector('#container');
 let btn = document.querySelector('#button');
 let paybtn = document.querySelector('#pay');
 
-let debouncedDoAction = debounce1(doAction, 1000);
+let debouncedDoAction = debounce(doAction, 1000);
 
-let debouncedPay = debounce(payMoney, 2000);
+let debouncedPay = debounce(payMoney, 1000);
 
 btn.onclick = function () {
     debouncedDoAction.cancel();

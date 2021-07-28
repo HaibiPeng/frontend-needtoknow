@@ -5,7 +5,7 @@
 //监听滚动事件，比如是否滑到底部自动加载更多，用throttle来判断
 
 
-//setTimeout 第一次不执行，最后一次不执行
+//setTimeout 第一次不执行，最后一次执行
 function throttle1(func, delay) {
     let timeout;
     return function() {
@@ -78,4 +78,4 @@ function doAction(e) {
     container.innerHTML = count++;
 }
 
-container.onmousemove = throttle3(doAction, 1000);
+container.onmousemove = throttle2(doAction, 1000);
