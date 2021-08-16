@@ -37,7 +37,7 @@
             //如果arr中还有数组，则对继续对arr进行扁平化
             while(arr.some((item) => Array.isArray(item))) {
                 arr = [].concat(...arr);//ES6扩展运算符
-                console.log(arr);
+                console.log(...arr);
             }
             return arr;
         }
@@ -63,6 +63,34 @@
         }
         console.log(flatten(arr)); */
 
+        // function flatten(arr) {
+        //     const result = [];
+        //     arr.forEach((item) => {
+        //         if (Array.isArray(item)) {
+        //             result = result.concat(flatten(item));
+        //         } else {
+        //             result.push(item);
+        //         }
+        //     })
+        //     return result;
+        // }
+
+        // function flatten(arr) {
+        //     return arr.reduce((prev, cur) => {
+        //         return prev.concat(Array.isArray(cur) ? flatten(cur) : cur);
+        //     }, [])
+        // }
+        
+        // function flatten(arr) {
+        //     while (arr.some((item) => Array.isArray(item))) {
+        //         arr = [].concat(...arr);
+        //     }
+        //     return arr;
+        // }
+
+        function flatten(arr) {
+            return arr.toString().split(',').map(num => parseInt(num));
+        }
         
     </script>
 </body>

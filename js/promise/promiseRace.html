@@ -60,8 +60,24 @@
             })
         }
 
+        myPromiseRace = function (promises) {
+            return new Promise(function (resolve, reject) {
+                if (!Array.isArray(promises)) {
+                    return reject('arguments must be an array');
+                }
+                promises.forEach(promise => {
+                    Promise.resolve(promise).then((value) => {
+                        return resolve(value);
+                    },
+                    (reason) => {
+                        return reject(reason);
+                    });
+                })
+            })
+        }
+
         console.time('time');
-        PromiseRace([p1, p2, p3]).then(result => {
+        myPromiseRace([p1, p2, p3]).then(result => {
             console.log(result);
             console.timeEnd('time');
         }).catch(reason => {

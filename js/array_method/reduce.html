@@ -20,6 +20,22 @@
             return init;
         }
 
+        Array.prototype.reduce = function(callback, init) {
+            let i = 0;
+            if (init === undefined) {
+                i = 1;
+                init = this[0];
+            }
+            for (i; i < this.length; i++) {
+                init = callback(init, this[i], i, this);
+            }
+            return init;
+        }
+
+        const arr = [1, 2, 3, 4, 5, 6, 7, 8];
+        const sum = arr.reduce((prev, cur) => prev + cur, 0);
+        console.log(sum);
+
     </script>
 </body>
 </html>

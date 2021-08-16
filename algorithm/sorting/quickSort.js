@@ -36,4 +36,37 @@ function quickSort(arr, low, high) {
     return arr;
 }
 
-console.log(quickSort(arr, 0, arr.length - 1));
+function _quickSort(num, left, right) {
+    var list = [[left, right]]; // 将[left,right]存入数组中，类似于递归入栈
+    while (list.length > 0) { // 若list不为空，循环弹出list最后一个数组进行快排
+        // 弹出list末尾。(也可用list.shift()取出list第一个数组，但在数据量较大时，这种方式效率较低)
+        var [curLeft, curRight] = list.pop(); 
+        // 若左右指针相遇，待排序数组长度小宇1，则无需进行快排(注意不能写成curLeft==curRight，这里curLeft是有可能大于curRight的
+        if (curLeft >= curRight) {
+            continue;
+        }
+        var low = curLeft, high = curRight, pivot = curLeft; // 以下与递归方法相同，请参考上面的递归详解
+        while (low < high) {
+            while (num[high] >= num[pivot] && low < high) {
+                high--;
+            }
+            // if (low >= high) {
+            //     break;
+            // }
+            while (num[low] <= num[pivot] && low < high) {
+                low++;
+            }
+            let temp = num[pivot];
+            num[pivot] = num[high];
+            num[high] = num[low];
+            num[low] = temp;
+            pivot = low;
+        }
+        list.push([curLeft, pivot - 1]); // 将pivot左边数组作为待排序数组，只需将左右指针放入list即可。
+        list.push([pivot + 1, curRight]); // 将pivot右边数组作为待排序数组，只需将左右指针放入list即可。
+    }
+    return num;
+}
+
+
+console.log(_quickSort(arr, 0, arr.length - 1));

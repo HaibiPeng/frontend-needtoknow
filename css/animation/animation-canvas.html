@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="700" height="550"></canvas>
+    <script type="text/javascript">
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext("2d");
+        let left = 0;
+        let flag = true;
+        let timer = setInterval(function () {
+            ctx.clearRect(0, 0, 700, 550); // 先清空区域
+            ctx.beginPath(); //  方法开始一条路径，或重置当前的路径
+            ctx.fillStyle = "#ccc";
+            ctx.fillRect(left, 0, 100, 100); // 填充区域
+            ctx.stroke(); // 画出来
+            // 改变位置
+            if (left > 700) {
+                clearInterval(timer);
+            }
+            if (flag) {
+                if (left > 200) {
+                    flag = false;
+                }
+                left++;
+            } else {
+                if (left <= 0) {
+                    flag = true
+                }
+                left--;
+            }
+        }, 16);
+    </script>
+</body>
+
+</html>

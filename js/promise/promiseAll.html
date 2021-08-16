@@ -46,7 +46,7 @@
                 //获取promises数量
                 const length = promises.length;
                 if (promises.length === 0) {//如果数组长度为0则返回空数组
-                    resolve([]);
+                    return resolve([]);
                 }
                 //维护一个计数器和一个结果数组
                 let count = 0;
@@ -70,8 +70,34 @@
             })
         }
 
+        myPromiseAll = function (promises) {
+            return new Promise(function (resolve, reject) {
+                if (!Array.isArray(promises)) {
+                    return reject('arguments must be an array');
+                }
+                const length = promises.length;
+                if (length === 0) {
+                    return resolve([]);
+                }
+                const result = [];
+                let count = 0;
+                promises.forEach(function (promise) {
+                    Promise.resolve(promise).then((value) => {
+                        result.push(value);
+                        count++;
+                        if (count === length) {
+                            return resolve(result);
+                        }
+                    },
+                    (reason) => {
+                        return reject(reason);
+                    })
+                })
+            })
+        }
+
         console.time('time');
-        PromiseAll([p1, p2, p3]).then(result => {
+        myPromiseAll([p1, p2, p3]).then(result => {
             console.log(result);
             console.timeEnd('time');
         }).catch(reason => {

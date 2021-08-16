@@ -100,7 +100,7 @@ let container = document.querySelector('#container');
 let btn = document.querySelector('#button');
 let paybtn = document.querySelector('#pay');
 
-let debouncedDoAction = debounce(doAction, 1000);
+let debouncedDoAction = debounce(doAction, 1000, true);
 
 let debouncedPay = debounce(payMoney, 1000);
 
@@ -112,3 +112,33 @@ btn.onclick = function () {
 paybtn.addEventListener('click', debouncedPay);
 
 container.onmousemove = debouncedDoAction;
+
+function myDebounce(func, delay, immediate) {
+    let timeout, result;
+    let debounced = function() {
+        let _this = this;
+        let args = arguments;
+        if (timeout) {
+            clearTimeout(timeout);
+        }
+        if (immediate) {
+            let callNow = !timeout;
+            timeout = setTimeout(function() {
+                timeout = null;
+            }, delay);
+            if (callNow) {
+                result = func.apply(_this, args);
+            }
+        } else {
+            timeout = setTimeout(function() {
+                result = func.apply(this, args);
+            }, delay);
+        }
+        return result;
+    }
+    debounced.cancel = function () {
+        clearTimeout(timeout);
+        timeout = null;
+    }
+    return debounced;
+}

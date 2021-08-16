@@ -41,10 +41,11 @@
                 return obj;
             }
             if(obj instanceof RegExp) return new RegExp(obj);
+            if(obj instanceof Date) return new Date(obj);
 
             // 解决循环引用， 防止无限遍历
             // 检查是有存在相同的对象在之前拷贝过，有则返回之前拷贝后存于map中的对象
-            if(map.get(obj)) return map.get(obj);
+            if(map.has(obj)) return map.get(obj);
 
             const result = Array.isArray(obj) ? [] : {}
 
@@ -67,7 +68,27 @@
             return JSON.parse(JSON.stringify(obj))
         }
 
-        let obj2 = deepclone(obj1);
+        function myDeepClone(obj, map = new WeakMap()) {
+            if (typeof obj !== 'object' || obj === null) {
+                return obj;
+            }
+
+            if (map.has(obj)) {
+                return map.get(obj);
+            }
+
+            const result = Array.isArray(obj) ? [] : {};
+
+            for (const key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    result[key] = myDeepClone(obj[key], map);
+                }
+            }
+
+            return result;
+        }
+
+        let obj2 = myDeepClone(obj1);
         obj2.name = 'xbx';
         obj2.hobbies[0] = 'biking';
         obj2.friends.a = 'phb';

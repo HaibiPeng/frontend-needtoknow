@@ -51,7 +51,6 @@
             }
         }
 
-        var f2 = myNew(Func1, 'peng', 23);
 
         //ES6 class类
         class Parent {
@@ -65,6 +64,24 @@
         };
         const child = new Parent('echo', 26);
         //child.sayName() //echo
+
+        function myNew1() {
+            // const obj = new Object();
+            // const [constructorFunc, ...args] = [...arguments];
+            // obj.__proto__ = constructorFunc.prototype;
+
+            const [constructorFunc, ...args] = [...arguments];
+            const obj = Object.create(constructorFunc.prototype);
+            const returnObj = constructorFunc.apply(obj, args);
+            if (typeof returnObj === 'object' && returnedObj !== null) {
+                return returnObj;
+            } else {
+                return obj;
+            }
+        }
+
+        var f2 = myNew1(Func1, 'peng', 23);
+        f2.sayName();
 
     </script>
 </body>

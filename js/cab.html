@@ -102,6 +102,39 @@
         //Func.prototype和Person.prototype等价，即person继承了Person构造函数的属性和方法
         console.log(person.collection);
 
+        // apply
+        Function.prototype.myApply = function(obj, args) {
+            if (typeof obj === 'object') {
+                obj = obj || window;
+            } else {
+                obj = {};
+            }
+
+            const func = Symbol();
+            obj[func] = this;
+            const result = obj[func](...args);
+            delete obj[func];
+            return result;
+        }
+
+        Function.prototype.myBind = function(obj, ...args1) {
+            if (typeof this !== 'function') {
+                throw new Error('not a function');
+            }
+            let _this = this;
+            let func = function() {};
+            func.prototype = _this.prototype;
+            let newFunc = function(...args2) {
+                let args = [...args1, ...args2];
+                if (this instanceof Func) {
+                    _this.apply(this, args);
+                } else {
+                    _this.apply(obj, args);
+                }
+            };
+            newFunc.prototype = new Func();
+            return newFunc;
+        }
     </script>
 </body>
 </html>

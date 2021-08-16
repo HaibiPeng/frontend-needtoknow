@@ -14,6 +14,9 @@
         function Person (name, age) {
             this.name = name;
             this.age = age;
+            this.sayName = function () {
+                return this.name
+            }
         }
 
         // 方法定义在构造函数的原型上
@@ -23,6 +26,28 @@
 
         var person = new Person('haibi', '23');
 
+        // 1.简单的原型继承
+        function Teacher1() {};
+        Teacher1.prototype = new Person();
+        // 问题：
+        // a.包含引用类型值的原型属性会被所有实例共享
+        // b.在创建子类类型的实例时，不能向超类类型的构造函数中传递参数。
+
+        // 2.借用构造函数继承（经典继承）
+        function Teacher2(name, age, subject) {
+            Person.call(this, ...arguments)
+            this.subject = subject;
+        }
+        // 问题：方法都只能在构造函数中定义，没有办法实现方法的复用
+        // 每次实例化一个对象，都会重新实例化 sayName 方法
+        var teacher2 = new Teacher2("sillywa", 24, 'math')
+        console.log(teacher2)
+        console.log(teacher2.sayName())
+
+        // 4.组合式继承（原型+构造函数）
+        // 问题：无论什么情况下都会调用两次超类的构造函数
+
+        // 3.组合寄生式继承
         //继承Person的属性，并添加自己的属性
         function Teacher(name, age, subject) {
             Person.call(this, name, age);
@@ -40,7 +65,7 @@
         //所以需要更正，如果不修改，会导致我们类型判断出错
         Teacher.prototype.constructor = Teacher;
 
-        var teacher = new Teacher();
+        var teacher = new Teacher("sami", 22, 'chemistry');
         teacher.getName();
         console.log(teacher.name);
         console.log(Teacher.prototype.constructor);

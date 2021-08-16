@@ -28,27 +28,25 @@
             /* float: left; */ /* 配合BFC清除浮动 */
         }
 
-        /* #clearfix::after {
+        /* #container::after {
             content: "";
             display: block;
             clear: both;
         } */
 
-        p {
+        /* p {
             clear: both;
-        }
+        } */
 
     </style>
 </head>
 <body>
-    <div id="clearfix">
-        <div id="container">
-            <div class="box">box</div>
-            <div class="box">box</div>
-            <div class="box">box</div>
-            <div class="box">box</div>
-            <p></p> <!-- 需要是块级元素 -->
-        </div>
+    <div id="container">
+        <div class="box">box</div>
+        <div class="box">box</div>
+        <div class="box">box</div>
+        <div class="box">box</div>
+        <!-- <p></p> --> <!-- 需要是块级元素 -->
     </div>
 </body>
 </html>
