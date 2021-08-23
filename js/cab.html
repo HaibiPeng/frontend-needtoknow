@@ -122,7 +122,7 @@
                 throw new Error('not a function');
             }
             let _this = this;
-            let func = function() {};
+            let Func = function() {};
             func.prototype = _this.prototype;
             let newFunc = function(...args2) {
                 let args = [...args1, ...args2];

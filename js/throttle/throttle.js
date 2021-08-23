@@ -47,7 +47,7 @@ function throttle3(func, delay) {
         if (now - pre > delay) {
             //第一次调用为undefined
             //从第一次调用debounce到最后一次用一直都是执行这个if中的func
-            console.log(timeout);
+            console.log('timeout1:', timeout);
             if(timeout) {
                 clearTimeout(timeout);
                 timeout = null;
@@ -60,7 +60,7 @@ function throttle3(func, delay) {
         //这里的func和上一个if中的func交替执行
         if(!timeout){
             timeout = setTimeout(function () {
-                console.log(timeout);
+                console.log('timeout2:', timeout);
                 func.apply(context, args);
                 pre = new Date();
                 timeout = null;
@@ -78,4 +78,66 @@ function doAction(e) {
     container.innerHTML = count++;
 }
 
-container.onmousemove = throttle2(doAction, 1000);
+container.onmousemove = myThrottle3(doAction, 1000);
+
+function myThrottle1(func, delay) {
+    let timeout;
+    return function() {
+        let _this = this;
+        let args = arguments;
+        if (timeout) {
+            return;
+        }
+        timeout = setTimeout(function() {
+            func.apply(_this, args);
+            timeout = null;
+        }, delay);
+    }
+}
+
+function myThrottle2(func, delay) {
+    let pre = 0;
+    return function () {
+        let _this = this;
+        let args = arguments;
+        let now = new Date();
+        if (now - pre > delay) {
+            func.apply(_this, args);
+            pre = now;
+        }
+    }
+}
+
+function myThrottle3(func, delay) {
+    let pre = 0;
+    let timeout;
+    let result;
+    let throttled = function() {
+        let _this = this;
+        let args = arguments;
+        let now = new Date();
+        if (now - pre > delay) {
+            if (timeout) {
+                clearTimeout(timeout);
+                timeout = null;
+            }
+            result = func.apply(_this, args);
+            pre = now;
+        }
+        if (!timeout) {
+            timeout = setTimeout(function() {
+                result = func.apply(_this, args);
+                clearTimeout(timeout);
+                timeout = null;
+                pre = new Date();
+            }, delay)
+        }
+        return result;
+    }
+    throttled.cancel = function() {
+        clearTimeout(timeout);
+        timeout = null;
+        pre = 0;
+    }
+    return throttled;
+}

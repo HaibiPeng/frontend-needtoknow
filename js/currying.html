@@ -13,28 +13,29 @@
         //作用：参数复用/延迟执行
 
         //通用柯里化函数
-        function Currying(fn, args) {
+        function Currying(fn, ...args) {
             var _this = this;
             //每个函数都有一个 length属性(函数名.length), 表示期望接收的函数的个数(而不是实际接收的参数个数)
             var length = fn.length;
             var args = args || [];
 
             return function () {
-                var _args  = args.concat(Array.prototype.slice.call(arguments));
+                // var _args  = args.concat(Array.prototype.slice.call(arguments));
+                var _args = [...args, ...arguments];
                 // 如果参数个数小于最初的fn.length，则递归调用，继续收集参数
                 if(_args.length < length) {
-                    return Currying.call(_this, fn, _args);
+                    return Currying.call(_this, fn, ..._args);
                 } else {
                     return fn.apply(_this, _args);
                 }
             }
         }
 
-        function multiFn(a, b, c) {
-            return a * b * c;
+        function multiFn(a, b, c, d) {
+            return a * b * c * d;
         }
 
-        var multi = Currying(multiFn);
+        var multi = Currying(multiFn, 2);
 
         console.log(multi(2)(3)(4)); //24
         console.log(multi(2, 3, 4)); //24
@@ -71,6 +72,20 @@
 
         //let res = add(1)(2, 3)(4, 5)(6);
         //console.log(Number(res) === 21);
+
+        function myCurrying(func, ...args) {
+            var _this = this;
+            var length = func.length;
+            var args = args || [];
+            return function() {
+                let _args = [...args, ...arguments];
+                if (_args.length < length) {
+                    return Currying.call(_this, func, ..._args);
+                } else {
+                    return func.apply(_this, _args);
+                }
+            }
+        }
     </script>
 </body>
 </html>

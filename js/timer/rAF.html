@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function setInterval(callback, interval) {
+            let timer;
+            let startTime = Date.now();
+            let endTime = startTime;
+            const loop = () => {
+                timer = window.requestAnimationFrame(loop);
+                endTime = Date.now();
+                if (endTime - startTime >= interval) {
+                    startTime = endTime = Date.now();
+                    callback(timer);
+                }
+            }
+            timer = window.requestAnimationFrame(loop);
+            return timer;
+        }
+
+        let a = 0;
+        setInterval(timer => {
+            console.log(1);
+            a++;
+            if (a === 3) cancelAnimationFrame(timer);
+        }, 1000)
+    </script>
+</body>
+</html>

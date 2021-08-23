@@ -9,7 +9,9 @@ var params = {
 function getJSON(url) {
     return new Promise((resolve, reject) => {
         var xhr = new XMLHttpRequest();
+        // const xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Mscrosoft.XMLHttp');
         xhr.open('GET', url + '?' + params.join('&'), true);
+        xhr.setRequestHeader('Accept', 'application/json');
 
         xhr.onreadystatechange = () => {
             //交互完成

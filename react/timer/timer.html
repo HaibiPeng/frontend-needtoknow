@@ -8,8 +8,9 @@
 </head>
 <body>
     <div id="counter"></div>
-    <script>
-        import React from "react";
+
+    <script type="text/babel">
+        import React, { useState } from "react";
         import ReactDOM from 'react-dom';
         
         class Counter extends React.Component {
@@ -45,9 +46,33 @@
                     );
                 }
             }
-            ReactDOM.render(
-                <Counter />, document.querySelector('#counter')
-            )
+
+        // function Counter() {
+        //     const [count, setCount] = useState(0);
+        //     function handleClick() {
+        //         setTimeout(() => {
+        //             setCount(count + 1);
+        //         }, 3000);
+        //     }
+        //     function handleClickFn() {
+        //         setTimeout(() => {
+        //             setCount((prevCount) => {
+        //                 return prevCount + 1;
+        //             })
+        //         }, 3000);
+        //     }
+        //     return (
+        //         <div>
+        //             Count: {count}
+        //             <button onClick={handleClick}>+</button>
+        //             <button onClick={handleClickFn}>+</button>
+        //         </div>
+        //     );
+        // }
+        
+        ReactDOM.render(
+            <Counter />, document.querySelector('#counter')
+        );
     </script>
 </body>
 </html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="关键词" />
+    <meta name="description" content="想要描述的内容" />
+    <title>0.5px</title>
+    <style type="text/css">
+        .thinner-border {
+            position: relative;
+        }
+
+        .thinner-border::before {
+            content: "";
+            position: absolute;
+            width: 500%;
+            height: 500%;
+            border: 1px solid #000;
+            transform-origin: 0 0;
+            box-sizing: border-box;
+            transform: scale(0.2, 0.2);
+        }
+
+        .border {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <span class="thinner-border">hello world</span>
+    <span class="border">hello world</span>
+</body>
+</html>

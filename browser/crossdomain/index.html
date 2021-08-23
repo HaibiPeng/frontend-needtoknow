@@ -37,6 +37,32 @@
                 console.log(data);
             }) */
 
+            // jsonp
+            const jsonp = ({ url, params, callbackName }) => {
+                const generateUrl = () => {
+                    let dataSrc = ''
+                    for (let key in params) {
+                        if (params.hasOwnProperty(key)) {
+                            dataSrc += `${key}=${params[key]}&`
+                        }
+                    }
+                    dataSrc += `callback=${callbackName}`
+                    return `${url}?${dataSrc}`
+                }
+                return new Promise((resolve, reject) => {
+                    // 创建一个script标签
+                    const scriptEle = document.createElement('script')
+                    // 指定src属性
+                    scriptEle.src = generateUrl()
+                    // 添加到dom中
+                    document.body.appendChild(scriptEle)
+                    window[callbackName] = data => {
+                        resolve(data)
+                        document.removeChild(scriptEle)
+                    }
+                })
+            }
+
             //cors复杂请求
             let xhr = new XMLHttpRequest();
             document.cookie = 'name=haibi'; // cookie不能跨域

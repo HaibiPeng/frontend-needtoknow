@@ -24,3 +24,4 @@ function parseParam(url) {
 
 const url = 'https://juejin.cn/post?token=2134&name=haibi&age=23';
 console.log(parseParam(url));
+

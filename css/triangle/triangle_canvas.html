@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>triangle canvas</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="700" height="410"></canvas>
+
+    <script>
+        // JavaScript for drawing on canvas
+            // applying colors + three triangles
+
+            function draw() {
+                // canvas with id="myCanvas"
+                var canvas = document.getElementById('myCanvas');
+                var ctx = canvas.getContext('2d');
+                ctx.beginPath(); // note usage below 
+
+                ctx.fillStyle = "#F9A520";
+                ctx.moveTo(0, 0); // start at top left corner of canvas
+                ctx.lineTo(200, 0); // go 200px to right (x), straight line from 0 to 0
+                ctx.lineTo(100, 200); // go to horizontal 100 (x) and vertical 200 (y)
+                ctx.fill(); // connect and fill
+
+                ctx.beginPath();
+                ctx.strokeStyle = "#00F";
+                ctx.moveTo(600, 0); // pick up "pen," reposition at 500 (horiz), 0 (vert)
+                ctx.lineTo(500, 200); // draw straight down by 200px (200 + 200)
+                ctx.lineTo(700, 200); // draw up toward left (100 less than 300, so left)
+                ctx.closePath(); // connect end to start
+                ctx.stroke(); // outline the shape that's been described
+            }
+
+            draw();
+    </script>
+</body>
+</html>
