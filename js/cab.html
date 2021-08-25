@@ -123,7 +123,7 @@
             }
             let _this = this;
             let Func = function() {};
-            func.prototype = _this.prototype;
+            Func.prototype = _this.prototype;
             let newFunc = function(...args2) {
                 let args = [...args1, ...args2];
                 if (this instanceof Func) {

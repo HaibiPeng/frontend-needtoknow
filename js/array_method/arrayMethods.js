@@ -79,3 +79,20 @@ Array.prototype.mySome = function (callback, thisArg) {
     return false;
 }
 
+
+Array.prototype.myEvery = function (callback, thisArg) {
+    if (this == null) {
+        throw new TypeError('this is null or not defined')
+    }
+    if (typeof callback !== "function") {
+        throw new TypeError(callback + ' is not a function')
+    }
+    const arr = Object(this);
+    const len = arr.length;
+    for (let i = 0; i < len; i++) {
+        if (!callback.call(thisArg, arr[i], i, arr)) {
+            return false;
+        }
+    }
+    return true;
+}
