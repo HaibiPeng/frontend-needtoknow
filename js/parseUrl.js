@@ -22,6 +22,6 @@ function parseParam(url) {
     return paramsObj;
 }
 
-const url = 'https://juejin.cn/post?token=2134&name=haibi&age=23';
+const url = 'https://juejin.cn/post?token=2134&name=haibi&age=23&test';
 console.log(parseParam(url));
 
