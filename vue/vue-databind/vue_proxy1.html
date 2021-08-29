@@ -23,7 +23,7 @@
                 if (attr[i].nodeName == 'v-model') {
                     var name = attr[i].nodeValue //看看是与哪一个数据相关
                     node.addEventListener('input', function (e) { //将与其相关的数据改为最新值
-                        vm[name] = e.target.value;
+                        vm[name] = e.target.value
                     })
                     node.value = vm.data[name]; //将data中的值赋予给该node
                     node.removeAttribute('v-model');
@@ -45,6 +45,7 @@
     }
 
     //在向碎片化文档中添加节点时，每个节点都处理一下
+
     function nodeToFragment(node, vm) {
         var fragment = document.createDocumentFragment();
         var child;
@@ -58,8 +59,9 @@
     // Vue构造函数     
     // 观察data中的所有属性值，注意增添了observe
     function Vue(options) {
-        this.data = options.data;
-        observe(this.data, this);
+        // this.data = options.data;
+        this.data = observe(options.data);
+        console.log(this.data);
         var id = options.el;
         var dom = nodeToFragment(document.getElementById(id), this);
         //处理完所有节点后，重新把内容添加回去
@@ -67,32 +69,36 @@
     }
 
     // 实现一个响应式监听属性的函数。一旦有赋新值就发生变化 
-    function defineReactive(obj, key, val) {
+    function defineReactive(obj) {
         var dep = new Dep();
-        Object.defineProperty(obj, key, {
-            get: function () {
+        const handler = {
+            get(target, key, recevier) {
                 if (Dep.target) {
-                    dep.addSub(Dep.target)
+                    dep.addSub(Dep.target);
                 }
-                return val
+                if (target[key] && typeof target[key] === 'object') {
+                    return new Proxy(target[key], handler);
+                }
+                return Reflect.get(target, key, recevier);
             },
-            set: function (newVal) {
-                if (newVal === val) {
-                    return
-                }
-                val = newVal;
+            set(target, key, val, recevier) {
+                console.log(target);
+                Reflect.set(target, key, val, recevier);
                 console.log('更新前-新值:' + val);
-                //一旦更新立马通知
                 dep.notify();
+                return true;
             }
-        })
+        };
+        return new Proxy(obj, handler);
     }
 
     // 实现一个观察者，对于一个实例 每一个属性值都进行观察。
-    function observe(obj, vm) {
-        for (let key of Object.keys(obj)) {
-            defineReactive(vm, key, obj[key]);
+    function observe(obj) {
+        if (!obj || typeof obj !== "object") {
+            return obj;
         }
+        console.log(obj);
+        return defineReactive(obj);
     }
 
     // Watcher监听者
@@ -111,18 +117,18 @@
             this.node.nodeValue = this.value //更改节点内容的关键
         },
         get() {
-            this.value = this.vm[this.name] //触发相应的get
+            this.value = this.vm.data[this.name] //触发相应的get
         }
     }
 
     // dep构造函数
 
     function Dep() {
-        this.subs = []
+        this.subs = [];
     }
     Dep.prototype = {
         addSub(sub) {
-            this.subs.push(sub)
+            this.subs.push(sub);
         },
         notify() {
             this.subs.forEach(function (sub) {
@@ -136,7 +142,7 @@
         data: {
             text: '赵刚'
         }
-    })
+    });
 </script>
 
 </html>

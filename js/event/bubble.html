@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>preventDefault 和 stopPropagation</title>
+    <style>
+        .box1{
+            height: 200px;
+            width: 600px;
+            margin: 0 auto;
+        }
+        
+        .box1 a{
+            display: block;
+            height: 50%;
+            width: 50%;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <a href="http://www.baidu.com" target="_blank" class="href"></a>
+    </div>
+
+    <script>
+        let box = document.getElementsByClassName('box1');
+        let link = document.getElementsByClassName('href');
+        // 第一种
+        //不阻止事件冒泡和默认事件
+        // box.onclick = function () {
+        //     console.log("1")//不阻止事件冒泡会打印1，页面跳转;	
+        // };
+
+        // 第二种
+        // 阻止冒泡
+        // link.onclick = function (event) {
+        //     event.stopPropagation();
+        //     //不会打印1，但是页面会跳转;
+        // };
+
+        // box.onclick = function () {
+        //     console.log("1")			
+        // };
+
+        // 第三种
+        box.onclick = function () {
+            console.log("1");
+        };
+
+
+        link.onclick = function (event) {
+            //阻止默认事件
+            event.preventDefault();
+
+            //页面不会跳转，但是会打印出1
+        };
+
+        // 第四种
+        // box.click(function () {
+        //     console.log("1")
+        // });
+
+
+        // //阻止冒泡
+        // link.click(function (event) {
+        //     event.stopPropagation();
+
+        //     //阻止默认事件
+        //     event.preventDefault()
+
+        //     //页面不会跳转，也不会打印出1
+        // });
+
+        // 第五种
+        // box.click(function () {
+        //     console.log("1")
+        // });
+
+        // link.click(function (event) {
+        //     return false;
+        //     //页面不会跳转，也不会打印出1，等于同时调用了event.stopPropagation()
+        //     //和event.preventDefault()
+        // });
+    </script>
+</body>
+</html>
