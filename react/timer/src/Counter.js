@@ -62,25 +62,32 @@ import React, { useState, useEffect } from 'react';
 // }
 
 function Counter() {
+  const [num, setNum] = useState(0);
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     // Update the document title using the browser API
     document.title = `You clicked ${count} times`;
-  });
+    console.log(`You clicked ${count} times`);
+  }, [count]);
   
   function handleClick() {
     // setTimeout(() => {
     //   setCount(count + 1)
     // }, 3000);
-    setCount(count + 1)
+    setCount(count + 1);
+    console.log('not fn: ', count);
   }
   function handleClickFn() {
-    setTimeout(() => {
-      setCount((prevCount) => {
-        return prevCount + 1
-      })
-    }, 3000);
+    // setTimeout(() => {
+    //   setCount((prevCount) => {
+    //     return prevCount + 1
+    //   })
+    // }, 3000);
+    setCount((prevCount) => {
+      return prevCount + 1;
+    })
+    console.log('fn: ', count);
   }
   return (
     <>
