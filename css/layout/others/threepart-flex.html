@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>threepart-flex</title>
+    <style type="text/css">
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .box {
+            height: 100px;
+            background-color: lightblue;
+            text-align: center;
+            flex-grow: 1; 
+            /* 定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
+            如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话） */
+        }
+
+        .space {
+            width: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">A</div>
+        <div class="space"></div>
+        <div class="box">B</div>
+        <div class="space"></div>
+        <div class="box">C</div>
+    </div>
+</body>
+</html>
